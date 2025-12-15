@@ -1,26 +1,131 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Font face declarations */
+@font-face {
+  font-family: 'Baron Neue';
+  src: url('/fonts/Baron_Neue.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: 'Baron Neue';
+  src: url('/fonts/Baron_Neue_Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
+@font-face {
+  font-family: 'Baron Neue';
+  src: url('/fonts/Baron_Neue_Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Telegrafico';
+  src: url('/fonts/telegrafico.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-baron: 'Baron Neue', system-ui, sans-serif;
+    --font-telegrafico: 'Telegrafico', system-ui, sans-serif;
+  }
+  
+  * {
+    @apply border-white/10;
+  }
+  
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-bg-primary text-text-primary;
+    font-family: var(--font-telegrafico);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-baron);
+    @apply font-bold tracking-tight;
+  }
+  
+  ::selection {
+    @apply bg-relique-purple/40 text-white;
+  }
+  
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Component styles */
+@layer components {
+  .tagline {
+    font-family: var(--font-telegrafico);
+    @apply text-sm tracking-[0.2em] uppercase text-text-secondary;
+  }
+  
+  .label {
+    font-family: var(--font-telegrafico);
+    @apply text-xs tracking-[0.15em] uppercase text-text-muted;
+  }
+  
+  .card {
+    @apply bg-bg-tertiary/50 border border-white/5 rounded-relique-md;
+    @apply transition-all duration-200;
+  }
+  
+  .card:hover {
+    @apply bg-bg-card border-white/10;
+  }
+  
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* TCG card effects */
+@layer utilities {
+  .tcg-glow-gold {
+    box-shadow: 0 0 20px rgba(178, 126, 43, 0.4);
+  }
+  
+  .tcg-glow-purple {
+    box-shadow: 0 0 20px rgba(130, 42, 128, 0.4);
+  }
+  
+  .aspect-tcg-card {
+    aspect-ratio: 63 / 88;
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, #132844 0%, #1f3a5c 50%, #132844 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
 }
